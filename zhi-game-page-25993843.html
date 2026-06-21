@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱游戏 · 故事从整理开始</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f3f4f6;
+            color: #2c2c2c;
+            line-height: 1.7;
+            padding: 2.4rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 920px;
+            width: 100%;
+        }
+
+        /* 开场短句 */
+        .opening {
+            margin: 1.2rem 0 2rem 0;
+            font-size: 1.6rem;
+            font-weight: 350;
+            letter-spacing: 0.02em;
+            color: #3c3c3c;
+            background: #ffffff;
+            padding: 1.8rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e9eaec;
+            text-align: center;
+        }
+
+        .opening strong {
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        /* 承接段落卡片 */
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #e2e4e8;
+            border-radius: 24px;
+            padding: 2rem 2.2rem;
+            margin: 1.8rem 0;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.02), 0 1px 4px rgba(0, 0, 0, 0.02);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 450;
+            letter-spacing: -0.01em;
+            color: #1a1a2e;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid #b0b8c4;
+            padding-left: 1rem;
+        }
+
+        .card p {
+            margin: 0.9rem 0;
+            color: #3f3f46;
+            font-size: 1.02rem;
+        }
+
+        /* 特点列表——温和卡片网格 */
+        .traits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 1.4rem 0 0.6rem 0;
+        }
+
+        .trait-item {
+            background: #fafafb;
+            border: 1px solid #e2e4e8;
+            border-radius: 20px;
+            padding: 1.2rem 1.4rem;
+            transition: background 0.1s ease;
+        }
+
+        .trait-item:hover {
+            background: #f0f1f3;
+        }
+
+        .trait-item .title {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: #1f2937;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .trait-item .title::before {
+            content: "·";
+            font-weight: 700;
+            color: #8f99a8;
+            font-size: 1.3rem;
+        }
+
+        .trait-item .desc {
+            font-size: 0.95rem;
+            color: #51525b;
+            line-height: 1.6;
+        }
+
+        /* 温和结尾 */
+        .closing {
+            margin: 2.8rem 0 1.8rem 0;
+            padding: 1.8rem 2rem;
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #e2e4e8;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
+            text-align: left;
+        }
+
+        .closing p {
+            font-size: 1.05rem;
+            color: #3b3b44;
+            margin: 0.6rem 0;
+        }
+
+        .closing a {
+            color: #2d3b4f;
+            text-decoration: none;
+            border-bottom: 1px solid #bcc3cd;
+            transition: border-color 0.15s, color 0.15s;
+            font-weight: 450;
+        }
+
+        .closing a:hover {
+            color: #0b1a2a;
+            border-bottom-color: #1f2937;
+        }
+
+        .faq-summary {
+            margin-top: 1.6rem;
+            padding: 0.8rem 0 0 0;
+            border-top: 1px solid #e9eaec;
+        }
+
+        .faq-summary details {
+            margin: 0.6rem 0;
+            padding: 0.3rem 0;
+        }
+
+        .faq-summary summary {
+            font-weight: 450;
+            cursor: pointer;
+            color: #2d3748;
+            padding: 0.3rem 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-summary summary::before {
+            content: "▸";
+            margin-right: 0.7rem;
+            color: #8f99a8;
+            font-size: 0.9rem;
+        }
+
+        .faq-summary details[open] summary::before {
+            content: "▾";
+        }
+
+        .faq-summary .answer {
+            padding: 0.4rem 1.2rem 0.4rem 2rem;
+            color: #4b5563;
+            font-size: 0.95rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            body {
+                padding: 1.6rem 1rem;
+            }
+            .opening {
+                font-size: 1.3rem;
+                padding: 1.4rem 1.2rem;
+            }
+            .card {
+                padding: 1.5rem 1.4rem;
+            }
+            .traits-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .closing {
+                padding: 1.4rem 1.2rem;
+            }
+            .faq-summary .answer {
+                padding-left: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .opening {
+                font-size: 1.2rem;
+                padding: 1.2rem 1rem;
+            }
+            .card h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- 开场短句 -->
+    <div class="opening">
+        <strong>每一款游戏，都值得被好好整理。</strong><br>
+        从散落的攻略、截图、存档，到一次次的通关感受——
+    </div>
+
+    <!-- 承接段落：资料整理的角度 -->
+    <div class="card">
+        <h2>把「爱游戏」变成一种习惯</h2>
+        <p>
+            很长一段时间，我发现自己玩过的游戏越来越多，但记忆却越来越模糊。某个周末想重温一款老游戏，却连它的名字都要想半天。于是我开始试着建一个简单的资料索引：游戏名称、平台、通关时间、几句私人备注。渐渐地，这份索引变成了一个小型的游戏档案库。
+        </p>
+        <p>
+            后来我发现了 <a href="https://zhi-game.com.cn" style="color:#1f2937; border-bottom:1px solid #b0b8c4; text-decoration:none; font-weight:450;">爱游戏</a>——一个同样重视整理与沉淀的地方。它不追求热闹的排行榜，更像一个安静的笔记本，帮我把那些喜欢的、玩了一半的、甚至烂尾的游戏都记下来，让每一段游玩经历都有迹可循。
+        </p>
+    </div>
+
+    <!-- 特点列表 -->
+    <div class="card" style="padding-bottom: 1.8rem;">
+        <h2>温和而踏实的索引方式</h2>
+        <div class="traits-grid">
+            <div class="trait-item">
+                <div class="title">按自己的节奏记录</div>
+                <div class="desc">不用赶进度，不用打分，想写什么就写什么。一段话、几个关键词，甚至只记录日期都可以。</div>
+            </div>
+            <div class="trait-item">
+                <div class="title">从列表里看见变化</div>
+                <div class="desc">翻看以前的记录，会发现自己的口味在变，耐心在变，连写备注的语气都不一样了。</div>
+            </div>
+            <div class="trait-item">
+                <div class="title">轻量而持久</div>
+                <div class="desc">没有复杂的分类规则，也没有社交压力。只需要一个浏览器标签页，就能持续维护自己的游戏年表。</div>
+            </div>
+            <div class="trait-item">
+                <div class="title">适合安静的游戏迷</div>
+                <div class="desc">如果你也经常在通关后想说点什么，又不想发到社交平台，这里刚好有一块安静的角落。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 场景提示 + FAQ 摘要（温和结尾） -->
+    <div class="closing">
+        <p>
+            某个周末下午，我翻出五年前玩《时空幻境》时记下的一句话：“时间倒流的设定让人着迷，但更打动我的是主角沉默的悔意。”——要不是翻看记录，我几乎忘了自己曾写下过这样的感受。
+        </p>
+        <p>
+            类似的小发现越来越多，我也越来越觉得，那些认真玩过的游戏，值得一份安静的档案。而<a href="https://zhi-game.com.cn">爱游戏</a>恰好提供了这样一种可能：不喧哗，不催促，只是帮我们把回忆整理好。
+        </p>
+
+        <div class="faq-summary">
+            <details>
+                <summary>FAQ 摘要：关于记录与索引</summary>
+                <div class="answer">
+                    <strong>Q：</strong> 一定要很懂游戏才能用吗？<br>
+                    <strong>A：</strong> 完全不用。从你玩过的第一款游戏开始记就行，哪怕只写“通关了，挺好玩”也足够。
+                </div>
+                <div class="answer">
+                    <strong>Q：</strong> 适合记录哪些类型？<br>
+                    <strong>A：</strong> 任何类型都可以。独立游戏、3A大作、手游、老模拟器游戏……重点是它们对你而言有意义。
+                </div>
+                <div class="answer">
+                    <strong>Q：</strong> 资料会丢失吗？<br>
+                    <strong>A：</strong> 建议定期自己备份一份文本记录。任何平台都不如自己手里的副本踏实，但这里可以是一个整洁的起点。
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- 小提示：不承担过多承诺，只传递温和使用感 -->
+    <div style="margin: 1.2rem 0 3rem 0; text-align: center; font-size: 0.9rem; color: #6b7280; border-top: 1px solid #e2e4e8; padding-top: 1.6rem;">
+        <span>慢慢整理，慢慢玩。每一份记录都是属于自己的游戏年表。</span>
+    </div>
+</div>
+</body>
+</html>
